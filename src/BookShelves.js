@@ -12,7 +12,7 @@ export default class BookShelves extends Component {
         var { books } = this.props
 
         if (books) {
-            console.log(books)
+            // console.log(books)
             const currentlyReading = books.filter((book) => (
                 book.shelf === "currentlyReading"
             ))
@@ -32,7 +32,7 @@ export default class BookShelves extends Component {
             })
             console.log('filtering ..')
             console.log('done!')
-            console.log(currentlyReading)
+            // console.log(currentlyReading)
         }
 
     }
