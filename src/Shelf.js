@@ -10,7 +10,7 @@ export default class Shelf extends Component {
                     <ol className="books-grid">
                         {(this.props.bookList).map((book) => (
                             <li key={book.id}>
-                                <Book book={book} />
+                                <Book book={book} updateBookHandler={this.props.updateBookHandler} />
                                 {console.log(book)}
                             </li>
                         ))}

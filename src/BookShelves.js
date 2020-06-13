@@ -5,11 +5,13 @@ export default class BookShelves extends Component {
     state = {
         currentlyReading: [],
         wantToRead: [],
-        read: []
+        read: [],
+        updateBook: []
     }
 
     componentDidMount() {
         var { books } = this.props
+        const { updateBook } = this.props
 
         if (books) {
             // console.log(books)
@@ -28,7 +30,8 @@ export default class BookShelves extends Component {
             this.setState({
                 currentlyReading,
                 read,
-                wantToRead
+                wantToRead,
+                updateBook
             })
             console.log('filtering ..')
             console.log('done!')
@@ -42,9 +45,9 @@ export default class BookShelves extends Component {
 
             <div className="list-books-content">
                 <div>
-                    <Shelf shelfName='Currently Reading' bookList={this.state.currentlyReading} />
-                    <Shelf shelfName='Want to Read' bookList={this.state.wantToRead} />
-                    <Shelf shelfName='Read' bookList={this.state.read} />
+                    <Shelf shelfName='Currently Reading' bookList={this.state.currentlyReading} updateBookHandler={this.state.updateBook} />
+                    <Shelf shelfName='Want to Read' bookList={this.state.wantToRead} updateBookHandler={this.state.updateBook} />
+                    <Shelf shelfName='Read' bookList={this.state.read} updateBookHandler={this.state.updateBook} />
                 </div>
             </div>
         )

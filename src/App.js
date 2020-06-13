@@ -26,6 +26,14 @@ class BooksApp extends React.Component {
         })
       })
   }
+
+  updateBookStatus = (book, shelf) => {
+    console.log('updating ...')
+    BooksAPI.update(book, shelf)
+      .then(result => {
+        console.log(result)
+      })
+  }
   onSearchQueryChange = (query) => {
     BooksAPI.search(query)
       .then(searchResult => {
@@ -41,7 +49,7 @@ class BooksApp extends React.Component {
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div>
-          
+
 
           <div className="open-search">
             <Link to='/search'><button>Add a Book</button></Link>
@@ -52,7 +60,7 @@ class BooksApp extends React.Component {
           <Route exact path='/' component={BoShelf} />
 
           {/* Constructing the finish route */}
-          <Route path='/final' component={() => <BookShelves books={this.state.books} />} />
+          <Route path='/final' component={() => <BookShelves books={this.state.books} updateBook={this.updateBookStatus} />} />
         </div>
 
       </div>
