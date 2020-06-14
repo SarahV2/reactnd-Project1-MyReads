@@ -24,15 +24,27 @@ class BooksApp extends React.Component {
         this.setState({
           books
         })
+        console.log(books)
       })
   }
 
-  updateBookStatus = (book, shelf) => {
+  updateBookStatus = async (book, shelf) => {
+    let newBooks = []
+    var updatedShelves = await BooksAPI.update(book, shelf)
     console.log('updating ...')
-    BooksAPI.update(book, shelf)
-      .then(result => {
-        console.log(result)
-      })
+    console.log(updatedShelves)
+    const shelves = Object.values(updatedShelves)
+    for (var i = 0; i < shelves.length; i++) {
+      for (var j = 0; j < shelves[i].length; j++) {
+        var newBook = await BooksAPI.get(shelves[i][j])
+        newBooks.push(newBook)
+      }
+    }
+    console.log(newBooks)
+    this.setState({
+      books: newBooks
+    })
+
   }
   onSearchQueryChange = (query) => {
     BooksAPI.search(query)

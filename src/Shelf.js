@@ -1,6 +1,36 @@
 import React, { Component } from 'react'
 import Book from './Book'
 export default class Shelf extends Component {
+    state = {
+        books: []
+    }
+
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.bookList !== this.props.bookList) {
+    //         this.setState({ books: this.props.bookList });
+    //     }
+    // }
+    componentDidMount() {
+        const { bookList } = this.props
+
+        if (bookList.length>0) {
+            console.log(bookList)
+
+            this.setState({
+                books: bookList
+            })
+        }
+
+
+    }
+
+    // componentDidUpdate() {
+    //     if (this.props.shelfBooks) {
+    //         this.setState({
+    //             book: this.props.bookList
+    //         })
+    //     }
+    // }
 
     render() {
         return (
