@@ -40,6 +40,7 @@ class BooksApp extends React.Component {
         newBooks.push(newBook)
       }
     }
+    
     console.log(newBooks)
     this.setState({
       books: newBooks
