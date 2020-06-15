@@ -10,12 +10,9 @@ import BookShelves from './BookShelves'
 class BooksApp extends React.Component {
   state = {
     books: [],
-    showSearchPage: false
-  }
-
-  state = {
-    contacts: [],
-    screen: 'list'
+    searchResult: [],
+    filteredResults: false,
+    showSearchPage: false,
   }
 
   componentDidMount() {
@@ -26,6 +23,7 @@ class BooksApp extends React.Component {
         })
         console.log(books)
       })
+    console.log(this.props)
   }
 
   updateBookStatus = async (book, shelf) => {
@@ -40,24 +38,59 @@ class BooksApp extends React.Component {
         newBooks.push(newBook)
       }
     }
-    
+
+
+
+
     console.log(newBooks)
+
     this.setState({
       books: newBooks
     })
 
   }
-  onSearchQueryChange = (query) => {
-    BooksAPI.search(query)
-      .then(searchResult => {
-        console.log(searchResult)
-      })
+
+  onSearchQueryChange = async (query) => {
+    // BooksAPI.search(query)
+    //   .then(searchResult => {
+    //     console.log(searchResult)
+    //   })
+    let searchResult = await BooksAPI.search(query);
+    // console.log(searchResult)
+
+    let books = this.state.books
+    console.log(books)
+
+    for (var i = 0; i < searchResult.length; i++) {
+      for (var j = 0; j < books.length; j++) {
+        if (searchResult[i].id === books[j].id) {
+          console.log('if clause')
+          searchResult[i].shelf = books[j].shelf;
+        }
+        // else {
+        //   searchResult[i].shelf = 'none'
+        // }
+        console.log(searchResult[i].shelf)
+
+      }
+      // if (i === searchResult.length - 1) {
+      //   this.setState({
+      //     filteredResults: true
+      //   })
+      // }
+      // else{
+      //   console.log('false clause id'+i)
+      // }
+    }
+
+    this.setState({
+      searchResult
+    })
   }
 
   render() {
     return (
       <div className="app">
-        <button><Link to='/final'>Final</Link></button>
         <div className="list-books">
           <div className="list-books-title">
             <h1>MyReads</h1>
@@ -69,11 +102,15 @@ class BooksApp extends React.Component {
           </div>
 
           <Route path='/search'
-            component={() => <Search searchBooks={this.onSearchQueryChange} />} />
-          <Route exact path='/' component={BoShelf} />
+            component={() => <Search
+              searchBooks={this.onSearchQueryChange}
+              searchResults={this.state.searchResult}
+              updateBook={this.updateBookStatus} />} />
+
+
 
           {/* Constructing the finish route */}
-          <Route path='/final' component={() => <BookShelves books={this.state.books} updateBook={this.updateBookStatus} />} />
+          <Route exact path='/' component={() => <BookShelves books={this.state.books} updateBook={this.updateBookStatus} />} />
         </div>
 
       </div>
