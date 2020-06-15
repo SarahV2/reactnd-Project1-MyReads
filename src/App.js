@@ -43,7 +43,7 @@ class BooksApp extends React.Component {
       }
     }
     this.setState({
-      books:quickUpdate
+      books: quickUpdate
     })
     let newBooks = []
     var updatedShelves = await BooksAPI.update(book, shelf)
@@ -67,39 +67,94 @@ class BooksApp extends React.Component {
   onSearchQueryChange = async (query) => {
     console.log(query)
 
-  //   if (query.length>0) {
-  //     BooksAPI.search(query).then(books => {
-  //       this.setState({
-  //         searchResults: books
-  //       })
-  //     })
-  //   }
-  //   else{
-  //     this.setState({searchResults:[]})
-  //   }
-  // this.setState({
-  //   searchResults: []
-  // })
+    if (query.length > 0) {
+      //     BooksAPI.search(query).then(books => {
+      //       this.setState({
+      //         searchResults: books
+      //       })
+      //     })
+      //   }
+      //   else{
+      //     this.setState({searchResults:[]})
+      //   }
+      // this.setState({
+      //   searchResults: []
+      // })
 
-  let searchResults = await BooksAPI.search(query);
+      let searchResults = await BooksAPI.search(query);
 
-   let books = this.state.books
-  // console.log(books)
+      let books = this.state.books
+      // console.log(books)
 
-  if (searchResults) {
-    for (var i = 0; i < searchResults.length; i++) {
-      for (var j = 0; j < books.length; j++) {
-        if (searchResults[i].id === books[j].id) {
-          console.log('if clause')
-          searchResults[i].shelf = books[j].shelf;
+      if (searchResults) {
+        for (var i = 0; i < searchResults.length; i++) {
+          for (var j = 0; j < books.length; j++) {
+            if (searchResults[i].id === books[j].id) {
+              console.log('if clause')
+              searchResults[i].shelf = books[j].shelf;
+            }
+            console.log(searchResults[i].shelf)
+          }
         }
-        console.log(searchResults[i].shelf)
+        this.setState({
+          searchResults
+        })
       }
+    } //outer if
+    else {
+      this.setState({
+        searchResults: []
+      })
     }
-    this.setState({
-      searchResults
-    })
   }
+
+  onSearchQueryChange = async (query) => {
+    console.log(query)
+
+    if (query.length > 0) {
+      //     BooksAPI.search(query).then(books => {
+      //       this.setState({
+      //         searchResults: books
+      //       })
+      //     })
+      //   }
+      //   else{
+      //     this.setState({searchResults:[]})
+      //   }
+      // this.setState({
+      //   searchResults: []
+      // })
+
+
+      try {
+        let searchResults = await BooksAPI.search(query);
+        let books = this.state.books
+        for (var i = 0; i < searchResults.length; i++) {
+          for (var j = 0; j < books.length; j++) {
+            if (searchResults[i].id === books[j].id) {
+              console.log('if clause')
+              searchResults[i].shelf = books[j].shelf;
+            }
+            console.log(searchResults[i].shelf)
+          }
+        }
+        this.setState({
+          searchResults
+        })
+
+
+        // console.log(books)
+      }
+      catch (error) {
+        this.setState({ searchResults: [] })
+      }
+
+    } //outer if
+    else {
+      this.setState({
+        searchResults: []
+      })
+    }
   }
 
   // onSearchQueryChange = (query) => {
@@ -113,18 +168,18 @@ class BooksApp extends React.Component {
   //   else {
   //     this.setState({ searchResults: [] })
   //   }
-    //   console.log(query)
-    // this.setState({
-    //   searchResults: []
-    // })
+  //   console.log(query)
+  // this.setState({
+  //   searchResults: []
+  // })
 
-    //  if (query.trim() !== '') {
-    //   BooksAPI.search(query).then((books) => {
-    //     this.setState({
-    //       searchResults: books
-    //     })
-    //   })
-    // }
+  //  if (query.trim() !== '') {
+  //   BooksAPI.search(query).then((books) => {
+  //     this.setState({
+  //       searchResults: books
+  //     })
+  //   })
+  // }
   //   let books = this.state.books
   //   let searchResults = this.state.searchResults
   //   console.log(books)

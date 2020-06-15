@@ -23,20 +23,23 @@ export default class Search extends Component {
     })
     // const { query } = this.state
     // if (query) {
-      this.props.searchBooks(searchQuery)
-      // this.setState({
-        // booksToDisplay: this.props.searchResults
-      // })
-      // console.log(query)
-   // }
+    this.props.searchBooks(searchQuery)
+    // this.setState({
+    // booksToDisplay: this.props.searchResults
+    // })
+    // console.log(query)
+    // }
+  }
+  clearQuery = () => {
+    this.setState({ query: '' })
   }
 
   render() {
     // console.log('inside render method')
     // console.log(this.props.searchResults)
     // console.log(this.props)
-    const { query} = this.state
-    const {searchResults}=this.props
+    const { query } = this.state
+    const { searchResults } = this.props
     // let searchResults=[]
     // if(this.props.searchResults){
     //  searchResults=this.props.searchResults
@@ -45,7 +48,7 @@ export default class Search extends Component {
       <div>
         <div className="search-books">
           <div className="search-books-bar">
-            <Link to='/'><button className="close-search">Close</button></Link>
+            <Link to='/' onClick={this.clearQuery}><button className="close-search">Close</button></Link>
             <div className="search-books-input-wrapper">
               {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -61,14 +64,14 @@ export default class Search extends Component {
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {searchResults.length>0&&searchResults.map((book) => (
+              {searchResults.length > 0 && searchResults.map((book) => (
 
                 <Book key={book.id} book={book} updateBookHandler={this.props.updateBook} />
 
               ))}
 
-              {query!==''&&searchResults.length===0&&<p>No Results</p>}
-              
+              {/* { searchResults.length === 0 && <p>No Results</p>} */}
+
 
 
             </ol>
