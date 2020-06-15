@@ -5,28 +5,42 @@ import { Link } from 'react-router-dom'
 export default class Search extends Component {
 
   state = {
-    query: ''
+    query: '',
+    booksToDisplay: []
   }
 
 
+  componentDidUpdate() {
 
+  }
   search = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     const searchQuery = e.target.value
+    console.log('handling input')
+    console.log(searchQuery)
     this.setState({
       query: searchQuery
     })
-    const { query } = this.state
-    if (query) {
-      this.props.searchBooks(this.state.query)
-    }
+    // const { query } = this.state
+    // if (query) {
+      this.props.searchBooks(searchQuery)
+      // this.setState({
+        // booksToDisplay: this.props.searchResults
+      // })
+      // console.log(query)
+   // }
   }
 
   render() {
     // console.log('inside render method')
     // console.log(this.props.searchResults)
     // console.log(this.props)
-    const { query } = this.state
+    const { query} = this.state
+    const {searchResults}=this.props
+    // let searchResults=[]
+    // if(this.props.searchResults){
+    //  searchResults=this.props.searchResults
+    // }
     return (
       <div>
         <div className="search-books">
@@ -41,16 +55,16 @@ export default class Search extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-              <input type="text" placeholder="Search by title or author"
-                onChange={(event) => this.search(event)} value={query} />
+              <input type="text" value={query} placeholder="Search by title or author"
+                onChange={(event) => this.search(event)} />
             </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {this.props.searchResults.map((book) => (
-                <li key={book.id}>
-                  <Book book={book} updateBookHandler={this.props.updateBook} />
-                </li>
+              {searchResults.length>0&&searchResults.map((book) => (
+
+                <Book key={book.id} book={book} updateBookHandler={this.props.updateBook} />
+
               ))}
 
 
