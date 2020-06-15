@@ -55,7 +55,10 @@ export default class Search extends Component {
       <div>
         <div className="search-books">
           <div className="search-books-bar">
-            <Link to='/' onClick={this.clearQuery}><button className="close-search">Close</button></Link>
+            <Link to={{pathname:'/',
+          updateProps:{
+            isUpdated:true
+          }}} onClick={this.clearQuery}><button className="close-search">Close</button></Link>
             <div className="search-books-input-wrapper">
               {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.

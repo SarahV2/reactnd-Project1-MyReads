@@ -41,7 +41,7 @@ export default class Shelf extends Component {
                         {(this.props.bookList).map((book) => (
                             <li key={book.id}>
                                 <Book book={book} updateBookHandler={this.props.updateBookHandler} />
-                                {console.log(book)}
+                                {/* {console.log(book)} */}
                             </li>
                         ))}
                     </ol>

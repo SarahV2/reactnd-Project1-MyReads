@@ -17,7 +17,7 @@ export default class BookShelves extends Component {
         if (books) {
             console.log(books)
             const currentlyReading = books.filter((book) => {
-                console.log(book)
+                //console.log(book)
                 return book.shelf === "currentlyReading"
             })
             console.log('Filtered CR')
@@ -45,17 +45,6 @@ export default class BookShelves extends Component {
 
     }
     render() {
-        var { books } = this.props
-        if (books && books.length > 0) {
-            console.log('hi now in render()')
-            const currentlyReading = books.filter((book) => {
-
-                console.log(book)
-                return book.shelf === "currentlyReading"
-            })
-            console.log('now filtering something ..')
-            console.log(currentlyReading)
-        }
         return (
             <div className="list-books">
                 <div className="list-books-title">

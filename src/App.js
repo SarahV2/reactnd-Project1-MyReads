@@ -1,10 +1,11 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Search from './Search'
 import BookShelves from './BookShelves'
+
 
 class BooksApp extends React.Component {
 
@@ -14,6 +15,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    console.log('MOUNTED!')
     BooksAPI.getAll()
       .then((books) => {
         this.setState({
@@ -24,36 +26,53 @@ class BooksApp extends React.Component {
     console.log(this.props)
   }
 
-  updateBookStatus = async (book, shelf) => {
-    if (book.shelf === 'none') {
-      console.log('none')
+  componentWillReceiveProps() {
+    if (this.props.location.updateProps.isUpdated) {
+      console.log(this.props.location)
     }
-    const quickUpdate = this.state.books
-    for (let i = 0; i < quickUpdate.length; i++) {
-      if (quickUpdate[i].id === book.id) {
-        quickUpdate[i].shelf = shelf
-        break;
-      }
-    }
+  }
 
-    this.setState({
-      books: quickUpdate
-    })
+  // componentDidUpdate(){
+  //   BooksAPI.getAll()
+  //   .then((books) => {
+  //     this.setState({
+  //       books
+  //     })
+  //     console.log(books)
+  //   })
+  // console.log(this.props)
+
+  // }
+
+  updateBookStatus = async (book, shelf) => {
+
+    // const quickUpdate = this.state.books
+    // for (let i = 0; i < quickUpdate.length; i++) {
+    //   if (quickUpdate[i].id === book.id) {
+    //     quickUpdate[i].shelf = shelf
+    //     break;
+    //   }
+    // }
+
+    // this.setState({
+    //   books: quickUpdate
+    // })
     let newBooks = []
     var updatedShelves = await BooksAPI.update(book, shelf)
     console.log('updating ...')
     console.log(updatedShelves)
-    const shelves = Object.values(updatedShelves)
-    for (var i = 0; i < shelves.length; i++) {
-      for (var j = 0; j < shelves[i].length; j++) {
-        var newBook = await BooksAPI.get(shelves[i][j])
-        newBooks.push(newBook)
-      }
-    }
-    console.log(newBooks)
+    let updateAll=await BooksAPI.getAll()
+    // const shelves = Object.values(updatedShelves)
+    // for (var i = 0; i < shelves.length; i++) {
+    //   for (var j = 0; j < shelves[i].length; j++) {
+    //     var newBook = await BooksAPI.get(shelves[i][j])
+    //     newBooks.push(newBook)
+    //   }
+    // }
+    // console.log(newBooks)
 
     this.setState({
-      books: newBooks
+      books: updateAll
     })
 
   }
@@ -174,6 +193,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const { books } = this.state
     return (
       <div className="app">
 
@@ -183,16 +203,19 @@ class BooksApp extends React.Component {
           <Link to='/search'><button>Add a Book</button></Link>
         </div>
 
-        <Route path='/search'
-          render={() => <Search
-            searchBooks={this.onSearchQueryChange}
-            searchResults={this.state.searchResults}
-            updateBook={this.updateBookStatus} />} />
+        <Switch>
+          <Route path='/search'
+            render={() => <Search
+              searchBooks={this.onSearchQueryChange}
+              searchResults={this.state.searchResults}
+              updateBook={this.updateBookStatus} />}
+          />
 
 
+          {/* Constructing the finish route */}
+          <Route exact path='/' component={() => <BookShelves books={books} updateBook={this.updateBookStatus} />} />
 
-        {/* Constructing the finish route */}
-        <Route exact path='/' component={() => <BookShelves books={this.state.books} updateBook={this.updateBookStatus} />} />
+        </Switch>
       </div>
 
 
