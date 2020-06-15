@@ -67,6 +67,9 @@ export default class Search extends Component {
 
               ))}
 
+              {query!==''&&searchResults.length===0&&<p>No Results</p>}
+              
+
 
             </ol>
           </div>

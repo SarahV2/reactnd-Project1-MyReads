@@ -35,6 +35,16 @@ class BooksApp extends React.Component {
   }
 
   updateBookStatus = async (book, shelf) => {
+    const quickUpdate = this.state.books
+    for (let i = 0; i < quickUpdate.length; i++) {
+      if (quickUpdate[i].id === book.id) {
+        quickUpdate[i].shelf = shelf
+        break;
+      }
+    }
+    this.setState({
+      books:quickUpdate
+    })
     let newBooks = []
     var updatedShelves = await BooksAPI.update(book, shelf)
     console.log('updating ...')
@@ -54,8 +64,8 @@ class BooksApp extends React.Component {
 
   }
 
-  // onSearchQueryChange = async (query) => {
-  //   console.log(query)
+  onSearchQueryChange = async (query) => {
+    console.log(query)
 
   //   if (query.length>0) {
   //     BooksAPI.search(query).then(books => {
@@ -67,72 +77,72 @@ class BooksApp extends React.Component {
   //   else{
   //     this.setState({searchResults:[]})
   //   }
-    // this.setState({
-    //   searchResults: []
-    // })
-
-    // let searchResults = await BooksAPI.search(query);
-
-    // let books = this.state.books
-    // console.log(books)
-
-    // if (searchResults) {
-    //   for (var i = 0; i < searchResults.length; i++) {
-    //     for (var j = 0; j < books.length; j++) {
-    //       if (searchResults[i].id === books[j].id) {
-    //         console.log('if clause')
-    //         searchResults[i].shelf = books[j].shelf;
-    //       }
-    //       console.log(searchResults[i].shelf)
-    //     }
-    //   }
-    //   this.setState({
-    //     searchResults
-    //   })
-    // }
- // }
-
-  onSearchQueryChange = (query) => {
-    if (query.length>0) {
-      BooksAPI.search(query).then(books => {
-        this.setState({
-          searchResults: books
-        })
-      })
-    }
-    else{
-      this.setState({searchResults:[]})
-    }
-  //   console.log(query)
   // this.setState({
   //   searchResults: []
   // })
 
-  //  if (query.trim() !== '') {
-  //   BooksAPI.search(query).then((books) => {
-  //     this.setState({
-  //       searchResults: books
-  //     })
-  //   })
-  // }
-  // let books = this.state.books
-  // let searchResults = this.state.searchResults
+  let searchResults = await BooksAPI.search(query);
+
+   let books = this.state.books
   // console.log(books)
-  // if (searchResults) {
-  // for (var i = 0; i < searchResults.length; i++) {
-  //   for (var j = 0; j < books.length; j++) {
-  //     if (searchResults[i].id === books[j].id) {
-  //       console.log('if clause')
-  //       searchResults[i].shelf = books[j].shelf;
+
+  if (searchResults) {
+    for (var i = 0; i < searchResults.length; i++) {
+      for (var j = 0; j < books.length; j++) {
+        if (searchResults[i].id === books[j].id) {
+          console.log('if clause')
+          searchResults[i].shelf = books[j].shelf;
+        }
+        console.log(searchResults[i].shelf)
+      }
+    }
+    this.setState({
+      searchResults
+    })
+  }
+  }
+
+  // onSearchQueryChange = (query) => {
+  //   if (query.length > 0) {
+  //     BooksAPI.search(query).then(books => {
+  //       this.setState({
+  //         searchResults: books
+  //       })
+  //     })
+  //   }
+  //   else {
+  //     this.setState({ searchResults: [] })
+  //   }
+    //   console.log(query)
+    // this.setState({
+    //   searchResults: []
+    // })
+
+    //  if (query.trim() !== '') {
+    //   BooksAPI.search(query).then((books) => {
+    //     this.setState({
+    //       searchResults: books
+    //     })
+    //   })
+    // }
+  //   let books = this.state.books
+  //   let searchResults = this.state.searchResults
+  //   console.log(books)
+  //   if (searchResults) {
+  //   for (var i = 0; i < searchResults.length; i++) {
+  //     for (var j = 0; j < books.length; j++) {
+  //       if (searchResults[i].id === books[j].id) {
+  //         console.log('if clause')
+  //         searchResults[i].shelf = books[j].shelf;
+  //       }
+  //       console.log(searchResults[i].shelf)
   //     }
-  //     console.log(searchResults[i].shelf)
+  //   }
+  //   this.setState({
+  //     searchResults
+  //   })
   //   }
   // }
-  // this.setState({
-  //   searchResults
-  // })
-  //}
-  }
 
   render() {
     return (
