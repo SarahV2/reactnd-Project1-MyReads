@@ -46,10 +46,10 @@ export default class BookShelves extends Component {
     }
     render() {
         var { books } = this.props
-        if (books&&books.length>0) {
+        if (books && books.length > 0) {
             console.log('hi now in render()')
             const currentlyReading = books.filter((book) => {
-                
+
                 console.log(book)
                 return book.shelf === "currentlyReading"
             })
@@ -57,12 +57,16 @@ export default class BookShelves extends Component {
             console.log(currentlyReading)
         }
         return (
-
-            <div className="list-books-content">
-                <div>
-                    <Shelf shelfName='Currently Reading' bookList={this.state.currentlyReading} updateBookHandler={this.state.updateBook} />
-                    <Shelf shelfName='Want to Read' bookList={this.state.wantToRead} updateBookHandler={this.state.updateBook} />
-                    <Shelf shelfName='Read' bookList={this.state.read} updateBookHandler={this.state.updateBook} />
+            <div className="list-books">
+                <div className="list-books-title">
+                    <h1>MyReads</h1>
+                </div>
+                <div className="list-books-content">
+                    <div>
+                        <Shelf shelfName='Currently Reading' bookList={this.state.currentlyReading} updateBookHandler={this.state.updateBook} />
+                        <Shelf shelfName='Want to Read' bookList={this.state.wantToRead} updateBookHandler={this.state.updateBook} />
+                        <Shelf shelfName='Read' bookList={this.state.read} updateBookHandler={this.state.updateBook} />
+                    </div>
                 </div>
             </div>
         )

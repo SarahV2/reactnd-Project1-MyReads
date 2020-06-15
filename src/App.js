@@ -4,15 +4,12 @@ import './App.css'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Search from './Search'
-import BoShelf from './BoShelf'
 import BookShelves from './BookShelves'
 
 class BooksApp extends React.Component {
   state = {
     books: [],
-    searchResult: [],
-    filteredResults: false,
-    showSearchPage: false,
+    searchResults: [],
   }
 
   componentDidMount() {
@@ -38,10 +35,6 @@ class BooksApp extends React.Component {
         newBooks.push(newBook)
       }
     }
-
-
-
-
     console.log(newBooks)
 
     this.setState({
@@ -50,51 +43,64 @@ class BooksApp extends React.Component {
 
   }
 
-  onSearchQueryChange = async (query) => {
-    // BooksAPI.search(query)
-    //   .then(searchResult => {
-    //     console.log(searchResult)
-    //   })
-    let searchResult = await BooksAPI.search(query);
-    // console.log(searchResult)
+  // onSearchQueryChange = async (query) => {
+  //   this.setState({
+  //     searchResults: []
+  //   })
 
-    let books = this.state.books
-    console.log(books)
+  //   let searchResults = await BooksAPI.search(query);
 
-    for (var i = 0; i < searchResult.length; i++) {
-      for (var j = 0; j < books.length; j++) {
-        if (searchResult[i].id === books[j].id) {
-          console.log('if clause')
-          searchResult[i].shelf = books[j].shelf;
-        }
-        // else {
-        //   searchResult[i].shelf = 'none'
-        // }
-        console.log(searchResult[i].shelf)
+  //   let books = this.state.books
+  //   console.log(books)
+  //   if (searchResults) {
+  //     for (var i = 0; i < searchResults.length; i++) {
+  //       for (var j = 0; j < books.length; j++) {
+  //         if (searchResults[i].id === books[j].id) {
+  //           console.log('if clause')
+  //           searchResults[i].shelf = books[j].shelf;
+  //         }
+  //         console.log(searchResults[i].shelf)
+  //       }
+  //     }
+  //     this.setState({
+  //       searchResults
+  //     })
+  //   }
+  // }
 
-      }
-      // if (i === searchResult.length - 1) {
-      //   this.setState({
-      //     filteredResults: true
-      //   })
-      // }
-      // else{
-      //   console.log('false clause id'+i)
-      // }
-    }
-
+  onSearchQueryChange =  (query) => {
     this.setState({
-      searchResult
+      searchResults: []
     })
+
+    BooksAPI.search(query).then((books) => {
+      this.setState({
+        searchResults:books
+      })
+    })
+    let books = this.state.books
+    let searchResults=this.state.searchResults
+    console.log(books)
+    if (searchResults) {
+      for (var i = 0; i < searchResults.length; i++) {
+        for (var j = 0; j < books.length; j++) {
+          if (searchResults[i].id === books[j].id) {
+            console.log('if clause')
+            searchResults[i].shelf = books[j].shelf;
+          }
+          console.log(searchResults[i].shelf)
+        }
+      }
+      this.setState({
+        searchResults
+      })
+    }
   }
 
   render() {
     return (
       <div className="app">
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
+
 
 
           <div className="open-search">
@@ -104,7 +110,7 @@ class BooksApp extends React.Component {
           <Route path='/search'
             component={() => <Search
               searchBooks={this.onSearchQueryChange}
-              searchResults={this.state.searchResult}
+              searchResults={this.state.searchResults}
               updateBook={this.updateBookStatus} />} />
 
 
@@ -113,7 +119,7 @@ class BooksApp extends React.Component {
           <Route exact path='/' component={() => <BookShelves books={this.state.books} updateBook={this.updateBookStatus} />} />
         </div>
 
-      </div>
+   
     )
   }
 }
