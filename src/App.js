@@ -7,17 +7,7 @@ import Search from './Search'
 import BookShelves from './BookShelves'
 
 class BooksApp extends React.Component {
-  // constructor() {
-  //   this.SearchComponent = () => {
-  //     return (
-  //       <Search
-  //         searchBooks={this.onSearchQueryChange}
-  //         searchResults={this.state.searchResults}
-  //         updateBook={this.updateBookStatus}
-  //       />
-  //     );
-  //   };
-  // }
+
   state = {
     books: [],
     searchResults: [],
@@ -35,6 +25,9 @@ class BooksApp extends React.Component {
   }
 
   updateBookStatus = async (book, shelf) => {
+    if (book.shelf === 'none') {
+      console.log('none')
+    }
     const quickUpdate = this.state.books
     for (let i = 0; i < quickUpdate.length; i++) {
       if (quickUpdate[i].id === book.id) {
@@ -42,6 +35,7 @@ class BooksApp extends React.Component {
         break;
       }
     }
+
     this.setState({
       books: quickUpdate
     })
@@ -64,68 +58,43 @@ class BooksApp extends React.Component {
 
   }
 
-  onSearchQueryChange = async (query) => {
-    console.log(query)
+  // onSearchQueryChange = async (query) => {
+  //   console.log(query)
 
-    if (query.length > 0) {
-      //     BooksAPI.search(query).then(books => {
-      //       this.setState({
-      //         searchResults: books
-      //       })
-      //     })
-      //   }
-      //   else{
-      //     this.setState({searchResults:[]})
-      //   }
-      // this.setState({
-      //   searchResults: []
-      // })
+  //   if (query.length > 0) {
 
-      let searchResults = await BooksAPI.search(query);
 
-      let books = this.state.books
-      // console.log(books)
+  //     let searchResults = await BooksAPI.search(query);
 
-      if (searchResults) {
-        for (var i = 0; i < searchResults.length; i++) {
-          for (var j = 0; j < books.length; j++) {
-            if (searchResults[i].id === books[j].id) {
-              console.log('if clause')
-              searchResults[i].shelf = books[j].shelf;
-            }
-            console.log(searchResults[i].shelf)
-          }
-        }
-        this.setState({
-          searchResults
-        })
-      }
-    } //outer if
-    else {
-      this.setState({
-        searchResults: []
-      })
-    }
-  }
+  //     let books = this.state.books
+  //     // console.log(books)
+
+  //     if (searchResults) {
+  //       for (var i = 0; i < searchResults.length; i++) {
+  //         for (var j = 0; j < books.length; j++) {
+  //           if (searchResults[i].id === books[j].id) {
+  //             console.log('if clause')
+  //             searchResults[i].shelf = books[j].shelf;
+  //           }
+  //           console.log(searchResults[i].shelf)
+  //         }
+  //       }
+  //       this.setState({
+  //         searchResults
+  //       })
+  //     }
+  //   } //outer if
+  //   else {
+  //     this.setState({
+  //       searchResults: []
+  //     })
+  //   }
+  // }
 
   onSearchQueryChange = async (query) => {
     console.log(query)
 
     if (query.length > 0) {
-      //     BooksAPI.search(query).then(books => {
-      //       this.setState({
-      //         searchResults: books
-      //       })
-      //     })
-      //   }
-      //   else{
-      //     this.setState({searchResults:[]})
-      //   }
-      // this.setState({
-      //   searchResults: []
-      // })
-
-
       try {
         let searchResults = await BooksAPI.search(query);
         let books = this.state.books
@@ -198,6 +167,11 @@ class BooksApp extends React.Component {
   //   })
   //   }
   // }
+
+  addBook = (book, shelf) => {
+    const currentBooks = this.state.books
+    currentBooks.push(book)
+  }
 
   render() {
     return (

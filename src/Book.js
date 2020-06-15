@@ -56,7 +56,7 @@ export default class Book extends Component {
                     <div className="book-top">
 
                         <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${thumbnail})` }}></div>
-    }
+    
                         <div className="book-shelf-changer">
                             <select onChange={(e) => this.handleUpdate(e, book)} defaultValue={book.shelf === undefined ? 'none' : book.shelf}>
                                 <option value="move" disabled >Move to...</option>

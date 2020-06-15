@@ -15,15 +15,22 @@ export default class Search extends Component {
   }
   search = (e) => {
     // e.preventDefault()
+
     const searchQuery = e.target.value
     console.log('handling input')
     console.log(searchQuery)
     this.setState({
       query: searchQuery
     })
+    if (searchQuery === '') {
+      this.setState({ booksToDisplay: [] })
+    }
     // const { query } = this.state
     // if (query) {
-    this.props.searchBooks(searchQuery)
+    else {
+      this.props.searchBooks(searchQuery)
+      this.setState({ booksToDisplay: this.props.searchResults })
+    }
     // this.setState({
     // booksToDisplay: this.props.searchResults
     // })
@@ -38,7 +45,7 @@ export default class Search extends Component {
     // console.log('inside render method')
     // console.log(this.props.searchResults)
     // console.log(this.props)
-    const { query } = this.state
+    const { query, booksToDisplay } = this.state
     const { searchResults } = this.props
     // let searchResults=[]
     // if(this.props.searchResults){
@@ -64,7 +71,7 @@ export default class Search extends Component {
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {searchResults.length > 0 && searchResults.map((book) => (
+              {booksToDisplay.length > 0 && booksToDisplay.map((book) => (
 
                 <Book key={book.id} book={book} updateBookHandler={this.props.updateBook} />
 
