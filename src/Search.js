@@ -8,6 +8,7 @@ export default class Search extends Component {
     query: '',
     booksToDisplay: [], // list of books we get from the parent component 'App.js'
     invalidQuery: false
+    // will be used to handle the rendering of an informative error message in case the search didnt yield any results
   }
 
   search = async (e) => {
@@ -26,9 +27,7 @@ export default class Search extends Component {
       await this.props.searchBooks(searchQuery)
       this.setState({ booksToDisplay: this.props.searchResults })
       const { query, booksToDisplay } = this.state
-      console.log(booksToDisplay.length)
-      console.log(query.length)
-      if ((booksToDisplay.length === undefined||booksToDisplay.length===0) && query.length !== 0) {
+      if ((booksToDisplay.length === undefined || booksToDisplay.length === 0) && query.length !== 0) {
         this.setState({
           invalidQuery: true
         })

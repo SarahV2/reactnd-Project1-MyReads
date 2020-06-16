@@ -27,7 +27,6 @@ class BooksApp extends React.Component {
   // Update the current shelf of the book
   updateBookStatus = async (book, shelf) => {
     await BooksAPI.update(book, shelf)
-    console.log('updating ...')
     // Call getAll() and assign its value to the book variable to have the updated list of books
     let updatedBookList = await BooksAPI.getAll()
     this.setState({
