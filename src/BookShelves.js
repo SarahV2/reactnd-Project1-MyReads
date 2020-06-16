@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Shelf from './Shelf'
 export default class BookShelves extends Component {
-
+    // This component is responsible for filtering the list of books passed as props  
     state = {
         currentlyReading: [],
         wantToRead: [],
@@ -12,25 +12,24 @@ export default class BookShelves extends Component {
     componentDidMount() {
         var { books } = this.props
         const { updateBook } = this.props
-        //console.log(books)
 
         if (books) {
-            console.log(books)
+            // Filter the list of books based on the shelf property of the book object
+
+            // Currently Reading 
             const currentlyReading = books.filter((book) => {
-                //console.log(book)
                 return book.shelf === "currentlyReading"
             })
-            console.log('Filtered CR')
-            // console.log(currentlyReading)
+
+            // Read
             const read = books.filter((book) => (
                 book.shelf === "read"
             ))
-            console.log('Filtered r')
 
+            // Want to read
             const wantToRead = books.filter((book) => (
                 book.shelf === "wantToRead"
             ))
-            console.log('Filtered WTR')
 
             this.setState({
                 currentlyReading,
@@ -38,13 +37,11 @@ export default class BookShelves extends Component {
                 wantToRead,
                 updateBook
             })
-            console.log('filtering ..')
-            console.log('done!')
-            // console.log(currentlyReading)
         }
-
     }
     render() {
+        //For each shelf, we'll call the <Shelf> component 
+        // and supply it with the corresponding list and the book update function.
         return (
             <div className="list-books">
                 <div className="list-books-title">
