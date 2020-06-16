@@ -1,11 +1,15 @@
 # MyReads 
-My reads is a bookshelf app where the user can assign books to shelves (labeled 'Currently Reading, Want to Read, and Read) and also move books between them.
+My reads is a bookshelf app where the user can search for books and assign them to shelves (labeled 'Currently Reading' , 'Want to Read', and 'Read') and also move books between them.
 
-## How to Run the Project
+## Installation & Run
 install the project dependencies by typing ```npm install``` or ```npm i``` in the terminal
 and then start the server by using the command ```npm start```
 
-
+## Components
+* ``` BookShelves```
+* ``` Shelf```
+* ``` Book```
+* ``` Search```
 
 ## Backend Server
 
