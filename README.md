@@ -3,7 +3,7 @@ My reads is a bookshelf app where the user can assign books to shelves (labeled 
 
 ## How to Run the Project
 install the project dependencies by typing ```npm install``` or ```npm i``` in the terminal
-start the server by using the command ```npm start```
+and then start the server by using the command ```npm start```
 
 
 
@@ -11,7 +11,7 @@ start the server by using the command ```npm start```
 
 <details>
 <summary>More details about the BookAPI provided in this project</summary>
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+The provided file BooksAPI.js contains the methods needed to perform necessary operations on the backend:
 
 * [`getAll`](#getall)
 * [`update`](#update)
@@ -53,10 +53,11 @@ search(query)
 * These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
 ## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend.
+
+</details>
 
 ## Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-</details>
