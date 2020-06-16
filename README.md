@@ -11,6 +11,9 @@ and then start the server by using the command ```npm start```
 * ``` Book```
 * ``` Search```
 
+<div align="center">
+  </div>
+
 ## Backend Server
 
 <details>
