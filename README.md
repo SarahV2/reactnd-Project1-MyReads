@@ -12,6 +12,9 @@ and then start the server by using the command ```npm start```
 * ``` Search```
 
 <div align="center">
+  <img src='/screenshots/c1.PNG'>
+  <br>
+  <img src='/screenshots/c2.PNG'>
   </div>
 
 ## Backend Server
