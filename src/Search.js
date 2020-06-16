@@ -6,13 +6,15 @@ export default class Search extends Component {
 
   state = {
     query: '',
-    booksToDisplay: [] // list of books we get fr
+    booksToDisplay: [], // list of books we get from the parent component 'App.js'
+    invalidQuery: false
   }
 
-  search = (e) => {
+  search = async (e) => {
     const searchQuery = e.target.value
     this.setState({
-      query: searchQuery
+      query: searchQuery,
+      invalidQuery: false
     })
 
     if (searchQuery === '') {
@@ -20,8 +22,17 @@ export default class Search extends Component {
     }
 
     else {
-      this.props.searchBooks(searchQuery)
+
+      await this.props.searchBooks(searchQuery)
       this.setState({ booksToDisplay: this.props.searchResults })
+      const { query, booksToDisplay } = this.state
+      console.log(booksToDisplay.length)
+      console.log(query.length)
+      if ((booksToDisplay.length === undefined||booksToDisplay.length===0) && query.length !== 0) {
+        this.setState({
+          invalidQuery: true
+        })
+      }
     }
   }
 
@@ -31,7 +42,7 @@ export default class Search extends Component {
 
   render() {
 
-    const { query, booksToDisplay } = this.state
+    const { query, booksToDisplay, invalidQuery } = this.state
 
     return (
       <div>
@@ -59,6 +70,7 @@ export default class Search extends Component {
               {booksToDisplay.length > 0 && booksToDisplay.map((book) => (
                 <Book key={book.id} book={book} updateBookHandler={this.props.updateBook} />
               ))}
+              {invalidQuery && <p>Sorry, no books found</p>}
             </ol>
           </div>
         </div>

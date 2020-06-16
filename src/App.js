@@ -39,7 +39,7 @@ class BooksApp extends React.Component {
   onSearchQueryChange = async (query) => {
     if (query.length > 0) {
       try {
-        let searchResults = await BooksAPI.search(query.trim());
+        let searchResults = await BooksAPI.search(query);
         let books = this.state.books
         // Compare the books resulted from the search with the current book list
         // this will help us show the correct current shelf of the book
@@ -57,8 +57,12 @@ class BooksApp extends React.Component {
         })
       }
       catch (error) {
-        this.setState({ searchResults: [] })
+        // this.setState({ searchResults: [] })
+        console.log(error)
       }
+    }
+    else {
+      this.setState({ searchBooks: [] })
     }
   }
 
