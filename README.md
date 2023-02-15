@@ -6,10 +6,10 @@ install the project dependencies by typing ```npm install``` or ```npm i``` in t
 and then start the server by using the command ```npm start```
 
 ## Components
-* ``` BookShelves```
-* ``` Shelf```
-* ``` Book```
-* ``` Search```
+* ```BookShelves```
+* ```Shelf```
+* ```Book```
+* ```Search```
 
 
 ## Screenshots
